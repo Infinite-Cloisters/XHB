@@ -223,10 +223,10 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 
         if (flag == 0) {
             htim4.Instance->CNT = 0;
-            HAL_TIM_Base_Start(&htim4);
+            HAL_TIM_Base_Start_IT(&htim4);
             flag = 1;
         } else {
-            HAL_TIM_Base_Stop(&htim4);
+            HAL_TIM_Base_Stop_IT(&htim4);
             CNT = htim4.Instance->CNT;
             flag = 2;
         }
@@ -236,7 +236,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     if(htim->Instance == TIM4){
         CNT =0XFFFF;
         flag=2;
-        HAL_TIM_Base_Stop(&htim4);
+        HAL_TIM_Base_Stop_IT(&htim4);
     }
 }
 /* USER CODE END 4 */
