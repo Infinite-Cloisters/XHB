@@ -62,8 +62,8 @@ void GreySensor_Update() {
 }
 int8_t *GreySensor_GetADC() {
     GreySensor_Update();
-    printf("\n");
-    HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
+
+    //HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
     RET[0] = 0;
     int8_t Base = -5;
     for (uint8_t i = 1; i < 7; ++i) {

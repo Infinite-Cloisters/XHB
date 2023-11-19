@@ -9,9 +9,9 @@
 #define Trigger_GPIO_Port GPIOB
 #define Trigger_Pin GPIO_PIN_12
 
-float UltraSound_VAL;
-uint32_t *cnt;
-char *ptr_flag;
+volatile float UltraSound_VAL;
+volatile uint32_t *cnt;
+volatile char *ptr_flag;
 
 void UltraSound_Init(uint32_t* p,char *p_flag){
     cnt = p;
@@ -48,16 +48,16 @@ uint32_t t;
 float UltraSound_GetVAL(){
     *ptr_flag=0;
     *cnt=0;
-    t=0;
+    //t=0;
 
     UltraSound_SendTrig();
 
-    while(*ptr_flag!=2&&t<65535){
-        ++t;
+    while(*ptr_flag!=2){
+        //++t;
     }
 
     if(*cnt!=0xFFFF && *cnt!=0)
-        UltraSound_VAL = (float)*cnt * 173 /10000;
+        UltraSound_VAL = (float)*cnt * 173 /1000;
     else
         return 0;
     return UltraSound_VAL;

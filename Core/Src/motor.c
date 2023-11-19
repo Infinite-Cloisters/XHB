@@ -3,11 +3,11 @@
 #include "oled.h"
 #include "GreySensor.h"
 #include "UltraSound.h"
-
+#include "stdio.h"
 _Bool is_1ST_ADC_B = 0;
 _Bool is_1ST_ADC_W = 0;
 uint32_t CNT_LEN = 0;
-
+void UltraSound_Evadible();
 //左前
 void IN1_2_FWD() {
     GPIOA->BSRR = GPIO_PIN_12 | (GPIO_PIN_11 << 16U);
@@ -193,6 +193,19 @@ void IN_TurnLeft_l() {
     IN_GoStraight();
     HAL_Delay(20);
 }
+
+void IN_TurnRight_l() {
+
+    IN_L_FWD();
+    IN_R_REV();
+
+    IN1_2_SPD(50);
+    INa_b_SPD(50);
+
+    IN3_4_SPD(50);
+    INc_d_SPD(50);
+    HAL_Delay(300);
+}
 //小车小右转4
 
 
@@ -202,7 +215,7 @@ void IN_AI_Control() {
      * [0]->隧道检测
      * [1]~[6]->灰度循迹
      * */
-
+    UltraSound_Evadible();
     const int8_t* ADC_R = GreySensor_GetADC();
     //如果隧道检测灰度开启
     if (ADC_R[1] != 0 && is_1ST_ADC_B == 0) {
@@ -234,15 +247,27 @@ void IN_AI_Control() {
     }
 }
 
-/*超声波制动*/
-#define MIN_DIS 10
-void UltraSound_Stop() {
-    /*设置超声波最小制动距离 MIN_DIS
-     *当小车与障碍物距离小于等于该值时制动
+/*超声波避障*/
+#define MIN_DIS 35
+#define GoStraight_Time 150  //ms
+void UltraSound_Evadible() {
+    /*当小车与障碍物距离小于
+     * 设置的最小距离MIN_DIS并制动后
+     * 小车向左转避开障碍物
+     * 后向右转并直行根据障碍物大小设定的直行时间GoStraight_Time
+     * 后右转直到灰度检测到循迹线后回正
      */
-    void UltraSound_Init(uint32_t *p, char *p_flag);   //超声波初始化
-    void UltraSound_SendTrig();                        //超声波发射
-    if(UltraSound_GetVAL()<=MIN_DIS) {
+    float DIS = UltraSound_GetVAL();
+    printf("DIS:%f\n",DIS);
+    if(DIS<=MIN_DIS && DIS>12) {
         IN_Stop();
+        HAL_Delay(300);
+        IN_TurnLeft_l();
+        HAL_Delay(100);
+        IN_TurnRight_l();
+        IN_GoStraight();
+        HAL_Delay(GoStraight_Time);
+        IN_TurnRight_l();
     }
 }
+
