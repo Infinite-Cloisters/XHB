@@ -235,14 +235,14 @@ void IN_AI_Control() {
 }
 
 /*超声波制动*/
-#define MIN_DIS 10
+#define MIN_DIS 18
 void UltraSound_Stop() {
     /*设置超声波最小制动距离 MIN_DIS
      *当小车与障碍物距离小于等于该值时制动
      */
-    void UltraSound_Init(uint32_t *p, char *p_flag);   //超声波初始化
-    void UltraSound_SendTrig();                        //超声波发射
-    if(UltraSound_GetVAL()<=MIN_DIS) {
+    //超声波发射
+    float DIS = UltraSound_GetVAL();
+    if(DIS<=MIN_DIS && DIS>12) {
         IN_Stop();
     }
 }
