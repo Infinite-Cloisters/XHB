@@ -2,6 +2,7 @@
 #include "tim.h"
 #include "oled.h"
 #include "GreySensor.h"
+#include "UltraSound.h"
 
 _Bool is_1ST_ADC_B = 0;
 _Bool is_1ST_ADC_W = 0;
@@ -231,6 +232,17 @@ void IN_AI_Control() {
     }else{
         IN_TurnRight_m();
     }
+}
 
-
+/*超声波制动*/
+#define MIN_DIS 10
+void UltraSound_Stop() {
+    /*设置超声波最小制动距离 MIN_DIS
+     *当小车与障碍物距离小于等于该值时制动
+     */
+    void UltraSound_Init(uint32_t *p, char *p_flag);   //超声波初始化
+    void UltraSound_SendTrig();                        //超声波发射
+    if(UltraSound_GetVAL()<=MIN_DIS) {
+        IN_Stop();
+    }
 }
