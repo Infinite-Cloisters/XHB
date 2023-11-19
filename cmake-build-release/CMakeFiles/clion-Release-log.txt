@@ -14,6 +14,6 @@
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- Maximum optimization for speed
--- Configuring done (4.3s)
+-- Configuring done (2.1s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/28035/Desktop/XHB/cmake-build-release

@@ -103,6 +103,7 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_USART2_UART_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
     //³¬Éù²¨
     UltraSound_Init(&CNT, &flag);
@@ -221,14 +222,21 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
     {
 
         if (flag == 0) {
-            htim1.Instance->CNT = 0;
-            HAL_TIM_IC_Start(&htim3, TIM_CHANNEL_3);
+            htim4.Instance->CNT = 0;
+            HAL_TIM_Base_Start(&htim4);
             flag = 1;
         } else {
-            HAL_TIM_IC_Stop(&htim3, TIM_CHANNEL_3);
-            CNT = htim1.Instance->CNT;
+            HAL_TIM_Base_Stop(&htim4);
+            CNT = htim4.Instance->CNT;
             flag = 2;
         }
+    }
+}
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+    if(htim->Instance == TIM4){
+        CNT =0XFFFF;
+        flag=2;
+        HAL_TIM_Base_Stop(&htim4);
     }
 }
 /* USER CODE END 4 */
