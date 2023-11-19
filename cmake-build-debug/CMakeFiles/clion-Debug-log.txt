@@ -1,4 +1,4 @@
-"C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" -S C:\Users\28035\Desktop\CAR\XHB -B C:\Users\28035\Desktop\CAR\XHB\cmake-build-debug
+"C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "MinGW Makefiles" -S C:\Users\28035\Desktop\XHB -B C:\Users\28035\Desktop\XHB\cmake-build-debug
 -- The C compiler identification is GNU 12.3.1
 -- The CXX compiler identification is GNU 12.3.1
 -- The ASM compiler identification is GNU
@@ -14,6 +14,6 @@
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- Minimal optimization, debug info included
--- Configuring done (2.9s)
--- Generating done (0.1s)
--- Build files have been written to: C:/Users/28035/Desktop/CAR/XHB/cmake-build-debug
+-- Configuring done (4.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Users/28035/Desktop/XHB/cmake-build-debug

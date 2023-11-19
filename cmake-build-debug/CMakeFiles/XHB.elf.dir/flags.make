@@ -5,13 +5,13 @@
 # compile C with D:/12.3 rel1/bin/arm-none-eabi-gcc.exe
 ASM_DEFINES = -DDEBUG -DSTM32F411xE -DUSE_HAL_DRIVER
 
-ASM_INCLUDES = -IC:\Users\28035\Desktop\CAR\XHB\Core\Inc -IC:\Users\28035\Desktop\CAR\XHB\Drivers\STM32F4xx_HAL_Driver\Inc -IC:\Users\28035\Desktop\CAR\XHB\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy -IC:\Users\28035\Desktop\CAR\XHB\Drivers\CMSIS\Device\ST\STM32F4xx\Include -IC:\Users\28035\Desktop\CAR\XHB\Drivers\CMSIS\Include
+ASM_INCLUDES = -IC:\Users\28035\Desktop\XHB\Core\Inc -IC:\Users\28035\Desktop\XHB\Drivers\STM32F4xx_HAL_Driver\Inc -IC:\Users\28035\Desktop\XHB\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy -IC:\Users\28035\Desktop\XHB\Drivers\CMSIS\Device\ST\STM32F4xx\Include -IC:\Users\28035\Desktop\XHB\Drivers\CMSIS\Include
 
 ASM_FLAGS = -g -mcpu=cortex-m4 -mthumb -mthumb-interwork -ffunction-sections -fdata-sections -fno-common -fmessage-length=0 -x assembler-with-cpp -Og -g
 
 C_DEFINES = -DDEBUG -DSTM32F411xE -DUSE_HAL_DRIVER
 
-C_INCLUDES = -IC:\Users\28035\Desktop\CAR\XHB\Core\Inc -IC:\Users\28035\Desktop\CAR\XHB\Drivers\STM32F4xx_HAL_Driver\Inc -IC:\Users\28035\Desktop\CAR\XHB\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy -IC:\Users\28035\Desktop\CAR\XHB\Drivers\CMSIS\Device\ST\STM32F4xx\Include -IC:\Users\28035\Desktop\CAR\XHB\Drivers\CMSIS\Include
+C_INCLUDES = -IC:\Users\28035\Desktop\XHB\Core\Inc -IC:\Users\28035\Desktop\XHB\Drivers\STM32F4xx_HAL_Driver\Inc -IC:\Users\28035\Desktop\XHB\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy -IC:\Users\28035\Desktop\XHB\Drivers\CMSIS\Device\ST\STM32F4xx\Include -IC:\Users\28035\Desktop\XHB\Drivers\CMSIS\Include
 
 C_FLAGS = -g -std=gnu11 -fdiagnostics-color=always -mcpu=cortex-m4 -mthumb -mthumb-interwork -ffunction-sections -fdata-sections -fno-common -fmessage-length=0 -Og -g
 

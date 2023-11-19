@@ -18,8 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "adc.h"
-#include "dma.h"
 #include "i2c.h"
 #include "tim.h"
 #include "usart.h"
@@ -57,6 +55,7 @@ uint16_t ADC_ARR[7] = {0};
 uint8_t UART_REC[5] = {0};
 uint32_t CNT = {0};
 char flag = {0};
+//char ADC_CMP_FLAG = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -99,26 +98,18 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
-  MX_ADC1_Init();
   MX_I2C1_Init();
   MX_TIM1_Init();
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-
     //超声波
     UltraSound_Init(&CNT, &flag);
-    //ADC+DMA
-    HAL_ADC_Start_DMA(&hadc1, (uint32_t *) ADC_ARR, 7);
-    HAL_ADC_PollForConversion(&hadc1, 50);
     //开启捕获
     HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_4);
     //开启串口接收
     HAL_UART_Receive_IT(&huart2, UART_REC, 5);
-    //中值滤波
-    GreySensor_Init(ADC_ARR);
     //开启电机调速PWM
     HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
     HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
@@ -129,6 +120,9 @@ int main(void)
     IN3_4_SPD(50);
     INa_b_SPD(50);
     INc_d_SPD(50);
+    //中值滤波
+    HAL_Delay(1000);
+    GreySensor_Init(ADC_ARR);
 //    开启电机
 //    IN1_2_FWD();
 //    IN3_4_FWD();
@@ -150,12 +144,13 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
+  //printf("InitOK\n");
     while (1) {
-    /* USER CODE END WHILE */
-        //IN_AI_Control();
 
-        //HAL_Delay(10);
+        IN_AI_Control();
+
+    /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
     }
   /* USER CODE END 3 */
@@ -208,23 +203,14 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
+//void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
+//
+//}
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//自定义回调函数 在UART_Receive_IT()中调用
 {
     //判断是哪个串口触发的中断  huart1.Instance = USART1;定义在MX_USART1_UART_Init中
     if (huart == &huart2)//huart ->Instance == USART1两种判断条件等价
     {
-        //printf("%s\tOK\n", UART_REC);
-        if(UART_REC[3]==0) {
-            printf("SEND_ADC_VAL:\n");
-            for (uint8_t i = 1; i < 7; ++i) {
-                printf("%u\t", ADC_ARR[i]);
-            }
-            printf("\n");
-        }else if(UART_REC[3]==1){
-            int8_t *ADC_STATE = GreySensor_GetADC();
-            printf("SEND_ADC_STA:\n");
-            printf("%d\t%d\n",ADC_STATE[0],ADC_STATE[1]);
-        }
         HAL_UART_Receive_IT(&huart2, UART_REC, 5);//完成一次接受，再此开启中断
 
     }
@@ -233,7 +219,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//自定义回调函数 在UART_R
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
     if (htim->Instance == TIM3)//
     {
-       // __HAL_TIM_CLEAR_IT(&htim3, TIM_IT_CC4);
+
         if (flag == 0) {
             htim1.Instance->CNT = 0;
             HAL_TIM_IC_Start(&htim3, TIM_CHANNEL_3);

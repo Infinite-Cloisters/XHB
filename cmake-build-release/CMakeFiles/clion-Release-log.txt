@@ -1,4 +1,4 @@
-"C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - MinGW Makefiles" -S C:\Users\28035\Desktop\CAR\XHB -B C:\Users\28035\Desktop\CAR\XHB\cmake-build-release
+"C:\Program Files\JetBrains\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Release "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2023.2.2/bin/ninja/win/x64/ninja.exe" -G Ninja -S C:\Users\28035\Desktop\XHB -B C:\Users\28035\Desktop\XHB\cmake-build-release
 -- The C compiler identification is GNU 12.3.1
 -- The CXX compiler identification is GNU 12.3.1
 -- The ASM compiler identification is GNU
@@ -14,6 +14,6 @@
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- Maximum optimization for speed
--- Configuring done (2.9s)
--- Generating done (0.1s)
--- Build files have been written to: C:/Users/28035/Desktop/CAR/XHB/cmake-build-release
+-- Configuring done (4.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Users/28035/Desktop/XHB/cmake-build-release

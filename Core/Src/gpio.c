@@ -56,6 +56,20 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOA, INa_Pin|IN4_Pin|IN3_Pin|IN2_Pin
                           |IN1_Pin, GPIO_PIN_RESET);
 
+  /*Configure GPIO pins : PA0 PA1 PA4 PA5
+                           PA6 PA7 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_4|GPIO_PIN_5
+                          |GPIO_PIN_6|GPIO_PIN_7;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PB0 PB2 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_2;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
   /*Configure GPIO pins : PBPin PBPin PBPin PBPin */
   GPIO_InitStruct.Pin = TRIG_Pin|INd_Pin|INc_Pin|INb_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
