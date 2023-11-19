@@ -28,5 +28,6 @@ void IN_R_REV();
 void IN_Stop();
 
 void IN_AI_Control();
+void UltraSound_Stop();
 
 #endif
