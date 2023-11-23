@@ -3,6 +3,7 @@
 
 #include "main.h"
 
+void IN_Init(char *p,char *p_2);
 
 //void IN1_2_FWD();
 //void IN1_2_REV();

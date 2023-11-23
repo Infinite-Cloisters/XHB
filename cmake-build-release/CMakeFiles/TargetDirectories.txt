@@ -1,3 +1,3 @@
-C:/XHB/XHB/cmake-build-release/CMakeFiles/XHB.elf.dir
-C:/XHB/XHB/cmake-build-release/CMakeFiles/edit_cache.dir
-C:/XHB/XHB/cmake-build-release/CMakeFiles/rebuild_cache.dir
+C:/Users/28035/Desktop/XHB/cmake-build-release/CMakeFiles/XHB.elf.dir
+C:/Users/28035/Desktop/XHB/cmake-build-release/CMakeFiles/edit_cache.dir
+C:/Users/28035/Desktop/XHB/cmake-build-release/CMakeFiles/rebuild_cache.dir

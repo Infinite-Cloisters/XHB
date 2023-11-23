@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
 #include "i2c.h"
 #include "tim.h"
 #include "usart.h"
@@ -54,7 +55,9 @@
 uint16_t ADC_ARR[7] = {0};
 uint8_t UART_REC[5] = {0};
 uint32_t CNT = {0};
-char flag = {0};
+uint32_t CNT_2 = {0};
+char flag = {2};
+char flag_2 = {2};
 //char ADC_CMP_FLAG = 0;
 /* USER CODE END PV */
 
@@ -104,9 +107,14 @@ int main(void)
   MX_TIM3_Init();
   MX_USART2_UART_Init();
   MX_TIM4_Init();
+  MX_TIM5_Init();
+  MX_ADC1_Init();
+  MX_I2C2_Init();
+  MX_TIM9_Init();
   /* USER CODE BEGIN 2 */
     //超声波
-    UltraSound_Init(&CNT, &flag);
+    UltraSound_Init(&CNT, &CNT_2);
+    IN_Init(&flag, &flag_2);
     //开启捕获
     HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_4);
     //开启串口接收
@@ -122,7 +130,7 @@ int main(void)
     INa_b_SPD(50);
     INc_d_SPD(50);
     //中值滤波
-    HAL_Delay(1000);
+
     GreySensor_Init(ADC_ARR);
 //    开启电机
 //    IN1_2_FWD();
@@ -145,10 +153,16 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  //printf("InitOK\n");
+
+    //UltraSound_SendTrig();
+   // UltraSound_SendTrig_2();
+
+    HAL_Delay(2000);
+    //printf("InitOK\n");
     while (1) {
 
         IN_AI_Control();
+        //printf("IN\n");
 
     /* USER CODE END WHILE */
 
@@ -230,13 +244,29 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
             CNT = htim4.Instance->CNT;
             flag = 2;
         }
+    } else if (htim->Instance == TIM4) {
+
+        if (flag_2 == 0) {
+            htim4.Instance->CNT = 0;
+            HAL_TIM_Base_Start_IT(&htim9);
+            flag_2 = 1;
+        } else {
+            HAL_TIM_Base_Stop_IT(&htim9);
+            CNT = htim9.Instance->CNT;
+            flag_2 = 2;
+        }
     }
 }
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-    if(htim->Instance == TIM4){
-        CNT =0XFFFF;
-        flag=2;
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+    if (htim->Instance == TIM4) {
+        CNT = 0XFFFF;
+        flag = 2;
         HAL_TIM_Base_Stop_IT(&htim4);
+    } else if (htim->Instance == TIM9) {
+        CNT_2 = 0XFFFF;
+        flag_2 = 2;
+        HAL_TIM_Base_Stop_IT(&htim9);
     }
 }
 /* USER CODE END 4 */

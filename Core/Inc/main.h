@@ -57,6 +57,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define TRIG_2_Pin GPIO_PIN_13
+#define TRIG_2_GPIO_Port GPIOC
 #define TIM3_CH2_ECHO_Pin GPIO_PIN_1
 #define TIM3_CH2_ECHO_GPIO_Port GPIOB
 #define TRIG_Pin GPIO_PIN_12
@@ -81,6 +83,8 @@ void Error_Handler(void);
 #define TIM3_CH1_PWM_GPIO_Port GPIOB
 #define TIM3_CH2_PWM_Pin GPIO_PIN_5
 #define TIM3_CH2_PWM_GPIO_Port GPIOB
+#define TIM4_CH3_ECHO_Pin GPIO_PIN_8
+#define TIM4_CH3_ECHO_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

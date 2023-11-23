@@ -12,10 +12,12 @@
 
 void HAL_Delay_us(uint16_t Delay);
 
-void UltraSound_ConvertCNT(uint32_t CNT);
+void UltraSound_SendTrig();
+void UltraSound_SendTrig_2();
+
+void UltraSound_Init(uint32_t *p,uint32_t* p2);
 
 float UltraSound_GetVAL();
-
-void UltraSound_Init(uint32_t *p, char *p_flag);
+float UltraSound_GetVAL_2();
 
 #endif //XHB_ULTRASOUND_H
